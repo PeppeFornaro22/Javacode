@@ -1,0 +1,85 @@
+public class Studente {
+    private String nome;
+    private String cognome;
+    private int eta;
+    private double mediaVoti;
+
+    public Studente(String nome, String cognome, int eta, double mediaVoti) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.eta = eta;
+        this.mediaVoti = mediaVoti;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public int getEta() {
+        return eta;
+    }
+
+    public double getMediaVoti() {
+        return mediaVoti;
+    }
+
+    public void setMediaVoti(double media) {
+        this.mediaVoti = media;
+    }
+
+    public boolean isPromosso() {
+        return mediaVoti >= 6;
+    }
+}
+
+public class Classe {
+    private Studente[] studenti;
+    private int nStudenti;
+
+    public Classe(int maxStudenti) {
+        studenti = new Studente[maxStudenti];
+        nStudenti = 0;
+    }
+
+    public void aggiungiStudente(Studente studente) {
+        studenti[nStudenti] = studente;
+        nStudenti++;
+    }
+
+    public int getNumeroStudenti() {
+        return nStudenti;
+    }
+
+    public double getMediaVotiClasse() {
+        double somma = 0;
+        for (int i = 0; i < nStudenti; i++) {
+            somma += studenti[i].getMediaVoti();
+        }
+        return somma / nStudenti;
+    }
+
+    public int getNumeroPromossi() {
+        int promossi = 0;
+        for (int i = 0; i < nStudenti; i++) {
+            if (studenti[i].isPromosso()) {
+                promossi++;
+            }
+        }
+        return promossi;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Classe classe = new Classe(5);
+        classe.aggiungiStudente(new Studente("Mario", "Rossi", 18, 7.5));
+        classe.aggiungiStudente(new Studente("Paolo", "Verdi", 17, 6));
+        classe.aggiungiStudente(new Studente("Luigi", "Bianchi", 19, 8));
+        System.out.println("Media voti della classe: " + classe.getMediaVotiClasse());
+        System.out.println("Numero di studenti promossi: " + classe.getNumeroPromossi());
+    }
+}
